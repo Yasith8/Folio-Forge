@@ -1,0 +1,45 @@
+{
+  "name": "folioforge",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Resume and portfolio builder with live preview, PDF export and public portfolio pages.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm run dev --workspace @folioforge/server",
+    "dev:web": "npm run dev --workspace @folioforge/web",
+    "build": "npm run build --workspace @folioforge/web && npm run build --workspace @folioforge/server",
+    "start": "npm run start --workspace @folioforge/server",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "npm run build && playwright test",
+    "db:generate": "npm run db:generate --workspace @folioforge/server",
+    "db:migrate": "npm run db:migrate --workspace @folioforge/server",
+    "db:seed": "npm run db:seed --workspace @folioforge/server",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "@playwright/test": "1.63.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.30.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.36.0",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.4"
+  }
+}

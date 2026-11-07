@@ -1,0 +1,37 @@
+# Runs the whole app locally: `docker compose up --build`, then open http://localhost:3000
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: folioforge
+      POSTGRES_PASSWORD: folioforge
+      POSTGRES_DB: folioforge
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U folioforge -d folioforge']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    init: true
+    # Chromium needs more shared memory than Docker's 64 MB default.
+    shm_size: 1gb
+    environment:
+      DATABASE_URL: postgres://folioforge:folioforge@db:5432/folioforge
+      PUBLIC_URL: http://localhost:3000
+      COOKIE_SECURE: 'false'
+      RUN_MIGRATIONS: 'true'
+      SEED_DEMO: 'true'
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
