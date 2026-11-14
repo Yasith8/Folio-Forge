@@ -1,0 +1,48 @@
+{
+  "name": "@folioforge/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate-cli.ts",
+    "db:seed": "tsx src/db/seed-cli.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.6",
+    "@folioforge/shared": "1.0.0",
+    "@folioforge/templates": "1.0.0",
+    "cookie-parser": "^1.4.7",
+    "drizzle-orm": "^0.45.4",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.1",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3",
+    "playwright": "1.63.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sanitize-html": "^2.17.0",
+    "typescript-eslint": "8.36.0",
+    "vitest": "5.1.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.17.0",
+    "@types/pg": "^8.15.5",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/sanitize-html": "^2.16.0",
+    "@types/supertest": "^6.0.3",
+    "drizzle-kit": "^0.18.1",
+    "supertest": "^7.1.4",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3"
+  }
+}
